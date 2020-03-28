@@ -1,48 +1,4 @@
-/*create database onlineshop;
-use onlineshop;
 
-Create table userTable (
-	id  int(11)  primary key auto_increment,
-    Username  varchar (20) ,
-    Password  varchar (20)
-);
-Create table GoodTable (
-	id  int(11)  primary key auto_increment,
-	price int(11),
-    goodName  varchar (20)
-);
-Create table OrderTable (
-	orderId  int(11)  primary key auto_increment,
-    userId  int(11) references userTable(id),
-    goodId int(11) references GoodTable(id),
-	price int(11) references GoodTable(price),
-	date datetime
-);
-alter table GoodTable add inventory varchar(20);
-alter table GoodTable modify inventory int(11);
-insert into GoodTable values(1,649,'SS20 SUPREME 长袖T恤',10);
-insert into GoodTable values(2,599,'SS20 SUPREME TEE',10);
-insert into OrderTable(userId, goodId, price, date) values(1,1,649,'2020-03-08');
-delete from OrderTable;
-update GoodTable set inventory=10 where id=1;
-update GoodTable set inventory=10 where id=2;
-insert into GoodTable values(1,959,'小李子:专柜正品adidas阿迪达斯猎鹰20.1 L AG短钉足球鞋男FW1066',10);
-insert into GoodTable values(2,3341,'TheNorthFace北面1990MountainJacket冲锋衣',10);
-insert into GoodTable values(3,593,'Roaringwild/咆哮野兽AW19 POLAR FLEECE 破断刺绣摇粒绒外套',10);
-insert into GoodTable values(4,99,'【设计师合作款】男装 宽松圆领T恤(短袖) 422995 优衣库UNIQLO',10);
-insert into GoodTable values(5,1129,'CDG PLAY x Converse 匡威1970S三星标 川久保玲帆布鞋 150204c',10);
-insert into GoodTable values(6,498,'RETROMIND 19SS 美式改良洗水竹节纹工装裤宽松直筒军事风休闲裤',10);
-
-
-delete from GoodTable where id='1';
-delete from GoodTable where id='2';
-alter table GoodTable modify goodName varchar(50);
-delete from userTable where Password='5';
-
-alter table OrderTable add goodName varchar(20);
-alter table OrderTable modify goodName varchar(50);
-
-update GoodTable set inventory=10;*/
 create database if not exists examsys;
 use examsys;
 DROP TABLE IF EXISTS student;
