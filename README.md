@@ -1,2 +1,2 @@
 # Online_examSystem
-一个简易的在线考试系统
+The system mainly implements make out test papers, online test, auto scoring, question management, paper analyzing,  paper management and basic information management. 
