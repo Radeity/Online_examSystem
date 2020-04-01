@@ -2,8 +2,10 @@ package dhu.cst.ExamSystem.service;
 
 import dhu.cst.ExamSystem.dao.StuRepository;
 import dhu.cst.ExamSystem.dao.TeaRepository;
+import dhu.cst.ExamSystem.dao.UserRepository;
 import dhu.cst.ExamSystem.entity.Student;
 import dhu.cst.ExamSystem.entity.Teacher;
+import dhu.cst.ExamSystem.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,8 @@ public class ChangePassService {
     private StuRepository stuRepository;
     @Autowired
     private TeaRepository teaRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     public boolean stuchangePass(String username,String oldpassword,String newpassword){
         List<Student> stu = stuRepository.findByStudentNoAndStudentPwd(username,oldpassword);
@@ -22,6 +26,9 @@ public class ChangePassService {
             Student student = stu.get(0);
             student.setStudentPwd(newpassword);
             stuRepository.save(student);
+            User user = userRepository.findByUsername(username).get();
+            user.setPassword(newpassword);
+            userRepository.save(user);
             return true;
         }
         else return false;
@@ -33,6 +40,9 @@ public class ChangePassService {
             Teacher teacher = tea.get(0);
             teacher.setTeacherPwd(newpassword);
             teaRepository.save(teacher);
+            User user = userRepository.findByUsername(username).get();
+            user.setPassword(newpassword);
+            userRepository.save(user);
             return true;
         }
         else return false;

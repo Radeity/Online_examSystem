@@ -10,6 +10,7 @@ public interface TeaRepository extends JpaRepository<Teacher, Long>{
     List<Teacher> findByTeacherNoAndTeacherPwd(String name, String password);
     List<Teacher> findAllByTeacherNoContaining(long teacherNo);
     List<Teacher> findAllByTeacherNameContaining(String teacherName);
+
     @Transactional
-    void deleteByTeacherId(long teaId);
+    void deleteByTeacherName(String teachername);
 }

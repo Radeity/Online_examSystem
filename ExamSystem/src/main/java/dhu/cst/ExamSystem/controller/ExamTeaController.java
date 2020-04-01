@@ -4,6 +4,7 @@ import dhu.cst.ExamSystem.entity.Exam;
 import dhu.cst.ExamSystem.service.ExamsetService;
 import dhu.cst.ExamSystem.service.TeaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,7 +14,8 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/tea")
+@PreAuthorize("hasAnyRole('ROLE_TEA')")
 public class ExamTeaController {
     @Autowired
     private ExamsetService examsetservice;
