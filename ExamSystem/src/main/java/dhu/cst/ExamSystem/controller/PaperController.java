@@ -3,6 +3,7 @@ package dhu.cst.ExamSystem.controller;
 import dhu.cst.ExamSystem.entity.Paper;
 import dhu.cst.ExamSystem.service.PaperService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,7 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/tea")
+@PreAuthorize("hasAnyRole('ROLE_TEA')")
 public class PaperController {
     @Autowired
     PaperService paperService;

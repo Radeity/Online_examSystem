@@ -1,26 +1,23 @@
 package dhu.cst.ExamSystem.controller;
 
-import dhu.cst.ExamSystem.entity.Answer;
-import dhu.cst.ExamSystem.service.AnswerService;
+import dhu.cst.ExamSystem.common.StuInfoResult;
+import dhu.cst.ExamSystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/tea")
 @PreAuthorize("hasAnyRole('ROLE_TEA')")
-public class AnswerController {
+public class getstuforteaController {
     @Autowired
-    AnswerService answerService;
+    UserService userService;
 
-    @RequestMapping(value = "/getanswerbypaper")
-    public List<Answer> getanswerbypaperm(@RequestParam("PaperId") long paperid){
-        return answerService.getanswerbypaper(paperid);
+    @RequestMapping(value = "/getstufortea")
+    public StuInfoResult getstufortea(@RequestParam("StudentId") long studentid){
+        return userService.getstufortea(studentid);
     }
-
 
 }

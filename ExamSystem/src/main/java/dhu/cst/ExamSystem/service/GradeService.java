@@ -49,5 +49,6 @@ public class GradeService {
     public List<Score> findgradebyclass(long classid) {
         return scoreRepository.findByClassId(classid);
     }
+
 }
 

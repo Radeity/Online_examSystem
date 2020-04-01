@@ -12,6 +12,7 @@ public class ChangePassController {
     @Autowired
     ChangePassService changePassService;
 
+
     @PostMapping(value = "/stuchangePass")
     public boolean stuchangePass(@RequestBody Map params) {
         String username = (String) params.get("username");
