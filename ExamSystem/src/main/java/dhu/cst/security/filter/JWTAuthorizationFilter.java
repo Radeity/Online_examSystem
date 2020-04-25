@@ -44,12 +44,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         super.doFilterInternal(request, response, chain);
     }
 
-<<<<<<< HEAD
-    /**
-     * 获取用户认证信息 Authentication
-     */
-=======
->>>>>>> dev
     private UsernamePasswordAuthenticationToken getAuthentication(String authorization) {
         String token = authorization.replace(SecurityConstants.TOKEN_PREFIX, "");
         try {

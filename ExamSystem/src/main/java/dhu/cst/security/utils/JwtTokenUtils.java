@@ -20,13 +20,8 @@ public class JwtTokenUtils {
     private static byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(SecurityConstants.JWT_SECRET_KEY);
     private static SecretKey secretKey = Keys.hmacShaKeyFor(apiKeySecretBytes);
 
-<<<<<<< HEAD
-    public static String createToken(String username, List<String> roles, boolean isRememberMe) {
-        long expiration = isRememberMe ? SecurityConstants.EXPIRATION_REMEMBER : SecurityConstants.EXPIRATION;
-=======
     public static String createToken(String username, List<String> roles) {
         long expiration = SecurityConstants.EXPIRATION;
->>>>>>> dev
 
         String tokenPrefix = Jwts.builder()
                 .setHeaderParam("typ", SecurityConstants.TOKEN_TYPE)
@@ -49,12 +44,6 @@ public class JwtTokenUtils {
         return getTokenBody(token).getSubject();
     }
 
-<<<<<<< HEAD
-    /**
-     * 获取用户所有角色
-     */
-=======
->>>>>>> dev
     public static List<SimpleGrantedAuthority> getUserRolesByToken(String token) {
         String role = (String) getTokenBody(token)
                 .get(SecurityConstants.ROLE_CLAIMS);
