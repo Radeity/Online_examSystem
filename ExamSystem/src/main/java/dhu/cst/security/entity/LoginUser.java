@@ -7,6 +7,6 @@ public class LoginUser {
 
     private String username;
     private String password;
-    private Boolean rememberMe;
+    private String code;
 
 }

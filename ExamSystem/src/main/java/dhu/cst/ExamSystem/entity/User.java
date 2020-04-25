@@ -16,7 +16,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private long id;
 
     @Column(name = "username")
     private String username;
@@ -30,6 +30,18 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "adminclass")
+    private String adminclass;
+
+    @Column(name = "gender")
+    private String gender;
+
+    @Column(name = "department")
+    private String department;
+
+    @Column(name = "state")
+    private long state;
+
     public List<SimpleGrantedAuthority> getRoles() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         Arrays.stream(roles.split(",")).forEach(role ->
@@ -37,4 +49,7 @@ public class User {
         return authorities;
     }
 
+    public String getName() {
+        return name;
+    }
 }

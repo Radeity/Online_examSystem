@@ -1,35 +1,22 @@
 package dhu.cst.ExamSystem.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import lombok.Data;
+
+import javax.persistence.*;
 
 @Entity
+@Data
+@Table(name = "classinfo")
 public class Classinfo {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long classId;
   @Column
   private String className;
-
-
-  public long getClassId() {
-    return classId;
-  }
-
-  public void setClassId(long classId) {
-    this.classId = classId;
-  }
-
-
-  public String getClassName() {
-    return className;
-  }
-
-  public void setClassName(String className) {
-    this.className = className;
-  }
+  @Column
+  private long teacherId;
+  @Column
+  private long subjectId;
 
 }

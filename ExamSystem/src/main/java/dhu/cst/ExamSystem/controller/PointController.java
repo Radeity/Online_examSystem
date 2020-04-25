@@ -1,40 +1,44 @@
 package dhu.cst.ExamSystem.controller;
 
 import dhu.cst.ExamSystem.entity.Point;
-import dhu.cst.ExamSystem.service.PointService;
+import dhu.cst.ExamSystem.service.IPointService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
+@Api(tags = "老师与知识点相关接口")
 @RestController
 @RequestMapping("/tea")
 @PreAuthorize("hasAnyRole('ROLE_TEA')")
 public class PointController {
     @Autowired
-    PointService pointService;
+    IPointService pointService;
 
-    @RequestMapping(value = "/getpointbyteacherid")
-    public List<Point> getpointbytea(@RequestParam("TeacherId") long teacherId) {
-        return pointService.getpointbytea(teacherId);
+    @ApiOperation("根据教师查找知识点")
+    @GetMapping(value = "/getpointbyteacheid")
+    public List<Point> getpointbytea() {
+        return pointService.getpointbytea();
     }
 
-    @RequestMapping(value = "/getpointbysubjectid")
+    @ApiOperation("根据学科查找知识点")
+    @GetMapping(value = "/getpointbysubjectid")
     public List<Point> getpointbysub(@RequestParam("subjectId") long subjectId) {
         return pointService.getpointbysub(subjectId);
     }
 
-    @RequestMapping(value = "/saveorupdatepoint")
+    @ApiOperation("增加或更新知识点")
+    @PostMapping(value = "/saveorupdatepoint")
     public Map addpoint(@RequestBody String strpoint) {
         return pointService.addpoint(strpoint);
     }
 
-    @RequestMapping(value = "/delepoint")
+    @ApiOperation("删除知识点")
+    @DeleteMapping(value = "/delepoint")
     public Map deletepoint(@RequestParam("pointId") long pointId){
         return pointService.delpoint(pointId);
     }

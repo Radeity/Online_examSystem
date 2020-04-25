@@ -1,16 +1,19 @@
 package dhu.cst.ExamSystem.entity;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import lombok.Data;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@Data
+@Table(name = "exam")
 public class Exam {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long examId;
   @Column
   private String examName;
@@ -19,22 +22,29 @@ public class Exam {
   @Column
   private long subjectId;
   @Column
-  private long singleNum;
-  @Column
-  private long singleScore;
-  @Column
-  private long multiNum;
-  @Column
-  private long multiScore;
-  @Column
-  private long blankNum;
-  @Column
-  private long blankScore;
+  private String subjectName;
   @Column
   private java.sql.Timestamp deadline;
   @Column
   private long lastTime;
+  @Column
+  private String state;
+  @Column
+  private String paperName;
 
+  @ManyToMany(cascade = {CascadeType.PERSIST})//级联类型保存
+  @JoinTable(name="ec",
+          joinColumns = {@JoinColumn(name = "exam_id")},
+          inverseJoinColumns = {@JoinColumn(name = "class_id")})
+  private Set<Classinfo> classset= new HashSet<Classinfo>(0);
+
+  public Set<Classinfo> getClassset() {
+    return classset;
+  }
+
+  public void setClassset(Set<Classinfo> classset) {
+    this.classset = classset;
+  }
 
   public long getExamId() {
     return examId;
@@ -71,60 +81,13 @@ public class Exam {
     this.subjectId = subjectId;
   }
 
-
-  public long getSingleNum() {
-    return singleNum;
+  public String getSubjectName() {
+    return subjectName;
   }
 
-  public void setSingleNum(long singleNum) {
-    this.singleNum = singleNum;
+  public void setSubjectName(String subjectName) {
+    this.subjectName = subjectName;
   }
-
-
-  public long getSingleScore() {
-    return singleScore;
-  }
-
-  public void setSingleScore(long singleScore) {
-    this.singleScore = singleScore;
-  }
-
-
-  public long getMultiNum() {
-    return multiNum;
-  }
-
-  public void setMultiNum(long multiNum) {
-    this.multiNum = multiNum;
-  }
-
-
-  public long getMultiScore() {
-    return multiScore;
-  }
-
-  public void setMultiScore(long multiScore) {
-    this.multiScore = multiScore;
-  }
-
-
-  public long getBlankNum() {
-    return blankNum;
-  }
-
-  public void setBlankNum(long blankNum) {
-    this.blankNum = blankNum;
-  }
-
-
-  public long getBlankScore() {
-    return blankScore;
-  }
-
-  public void setBlankScore(long blankScore) {
-    this.blankScore = blankScore;
-  }
-
 
   public java.sql.Timestamp getDeadline() {
     return deadline;
@@ -142,5 +105,9 @@ public class Exam {
   public void setLastTime(long lastTime) {
     this.lastTime = lastTime;
   }
+
+  public String getState(){return state;}
+
+  public void setState(String state){this.state = state;}
 
 }
