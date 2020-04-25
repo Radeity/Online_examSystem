@@ -6,9 +6,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+<<<<<<< HEAD
 /**
  * @author shuang.kou
  */
+=======
+>>>>>>> dev
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(value = UserNameAlreadyExistException.class)

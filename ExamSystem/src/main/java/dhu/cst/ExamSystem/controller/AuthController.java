@@ -1,7 +1,13 @@
 package dhu.cst.ExamSystem.controller;
 
 import dhu.cst.ExamSystem.entity.User;
+<<<<<<< HEAD
 import dhu.cst.ExamSystem.service.AdminUserService;
+=======
+import dhu.cst.ExamSystem.service.IAdminUserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+>>>>>>> dev
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,14 +16,24 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+<<<<<<< HEAD
 
+=======
+@Api(tags = "/auth/** 的接口")
+>>>>>>> dev
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
     @Autowired
+<<<<<<< HEAD
     AdminUserService userService;
 
+=======
+    IAdminUserService userService;
+
+    @ApiOperation("插入或修改用户信息")
+>>>>>>> dev
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("/saveorupdateuser")
     public ResponseEntity registerUser(@RequestBody Map<String, String> registerUser) {
@@ -25,6 +41,10 @@ public class AuthController {
         return ResponseEntity.ok().build();
     }
 
+<<<<<<< HEAD
+=======
+    @ApiOperation("获取全部用户信息")
+>>>>>>> dev
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUser() {
@@ -33,6 +53,11 @@ public class AuthController {
         return ResponseEntity.ok().body(allUser);
     }
 
+<<<<<<< HEAD
+=======
+    @ApiOperation("根据名字查找用户信息")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+>>>>>>> dev
     @GetMapping("/finduser")
     public ResponseEntity<User> findUserByName(@RequestParam("name") String name) {
         //    System.out.println("当前访问该接口的用户为：" + currentUser.getCurrentUser().toString());
@@ -40,6 +65,7 @@ public class AuthController {
         return ResponseEntity.ok().body(user);
     }
 
+<<<<<<< HEAD
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/userbyrole")
     public ResponseEntity<User> findUserByRole(@RequestParam("role") String role) {
@@ -50,6 +76,61 @@ public class AuthController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/deleteuser")
+=======
+    @ApiOperation("根据学号查找用户信息")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @GetMapping("/getuserinfo")
+    public ResponseEntity<User> findUserByUserName(@RequestParam("username") String username) {
+        //    System.out.println("当前访问该接口的用户为：" + currentUser.getCurrentUser().toString());
+        User user = userService.findUserByUserName(username);
+        return ResponseEntity.ok().body(user);
+    }
+
+    @ApiOperation("用户状态禁用")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PostMapping("/stateforbid")
+    public boolean stateforbid(@RequestBody Map params){
+        long id = (int) params.get("id");
+        return userService.stateforbid(id);
+    }
+
+    @ApiOperation("用户状态启用")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PostMapping("/statepermit")
+    public boolean statepermit(@RequestBody Map params){
+        long id = (int)params.get("id");
+        return userService.statepermit(id);
+    }
+
+
+    @ApiOperation("修改密码")
+    @PostMapping(value = "/changePass")
+    public boolean stuchangePass(@RequestBody Map params) {
+        String username = (String) params.get("username");
+        String oldpassword = (String) params.get("oldpassword");
+        String newpassword =  (String) params.get("newpassword");
+        return userService.changePass(username,oldpassword,newpassword);
+    }
+
+    @ApiOperation("获取登录信息")
+    @GetMapping(value = "/getuser")
+    public User getcurrentuser() {
+        return userService.getuser();
+    }
+
+    @ApiOperation("根据角色查找用户信息")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @GetMapping("/userbyrole")
+    public ResponseEntity<List<User>> findUserByRole(@RequestParam("role") String role) {
+        //    System.out.println("当前访问该接口的用户为：" + currentUser.getCurrentUser().toString());
+        List<User> user = userService.findUserByRole(role);
+        return ResponseEntity.ok().body(user);
+    }
+
+    @ApiOperation("删除用户信息")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @DeleteMapping("/deleteuser")
+>>>>>>> dev
     public ResponseEntity<User> deleteUser(@RequestParam("username") String username) {
         //    System.out.println("当前访问该接口的用户为：" + currentUser.getCurrentUser().toString());
         userService.deleteUserByUserName(username);

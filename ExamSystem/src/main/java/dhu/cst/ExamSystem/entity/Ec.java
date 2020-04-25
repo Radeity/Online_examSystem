@@ -1,27 +1,19 @@
 package dhu.cst.ExamSystem.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import dhu.cst.ExamSystem.common.PrimaryKey;
 
+import javax.persistence.*;
+
+@IdClass(PrimaryKey.class)
 @Entity
+@Table(name = "ec")
 public class Ec {
     @Id
-    @GeneratedValue
-    private long Id;
-    @Column
+    @Column(name = "exam_id", nullable = false)
     private long examId;
-    @Column
+    @Id
+    @Column(name = "class_id", nullable = false)
     private long classId;
-
-    public long getId() {
-        return Id;
-    }
-
-    public void setId(long Id) {
-        this.Id = Id;
-    }
 
     public long getExamId() {
         return examId;

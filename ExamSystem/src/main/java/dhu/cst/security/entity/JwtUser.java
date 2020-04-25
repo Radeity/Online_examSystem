@@ -8,7 +8,11 @@ import java.util.Collection;
 
 public class JwtUser implements UserDetails {
 
+<<<<<<< HEAD
     private Integer id;
+=======
+    private long id;
+>>>>>>> dev
     private String username;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
@@ -16,9 +20,13 @@ public class JwtUser implements UserDetails {
     public JwtUser() {
     }
 
+<<<<<<< HEAD
     /**
      * 通过 user 对象创建jwtUser
      */
+=======
+    //通过User创建JwtUser
+>>>>>>> dev
     public JwtUser(User user) {
         id = user.getId();
         username = user.getUsername();
@@ -26,6 +34,11 @@ public class JwtUser implements UserDetails {
         authorities = user.getRoles();
     }
 
+<<<<<<< HEAD
+=======
+    public long getId(){return id;}
+
+>>>>>>> dev
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;

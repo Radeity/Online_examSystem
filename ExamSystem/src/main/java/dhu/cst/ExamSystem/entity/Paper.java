@@ -1,44 +1,33 @@
 package dhu.cst.ExamSystem.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import lombok.Data;
+
+import javax.persistence.*;
 
 @Entity
+@Data
+@Table(name = "paper")
 public class Paper {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long paperId;
   @Column
   private String paperName;
   @Column
   private long subjectId;
-
-  public long getPaperId() {
-    return paperId;
-  }
-
-  public void setPaperId(long paperId) {
-    this.paperId = paperId;
-  }
-
-
-  public String getPaperName() {
-    return paperName;
-  }
-
-  public void setPaperName(String paperName) {
-    this.paperName = paperName;
-  }
-
-
-  public long getSubjectId() {
-    return subjectId;
-  }
-
-  public void setSubjectId(long subjectId) {
-    this.subjectId = subjectId;
-  }
+  @Column
+  private String subjectName;
+  @Column
+  private long singleNum;
+  @Column
+  private long singleScore;
+  @Column
+  private long multiNum;
+  @Column
+  private long multiScore;
+  @Column
+  private long blankNum;
+  @Column
+  private long blankScore;
 
 }

@@ -1,14 +1,15 @@
 package dhu.cst.ExamSystem.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import lombok.Data;
+
+import javax.persistence.*;
 
 @Entity
+@Data
+@Table(name = "pdetail")
 public class Pdetail {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long detailId;
   @Column
   private long paperId;
@@ -22,67 +23,7 @@ public class Pdetail {
   private String questionName;
   @Column
   private String corAnswer;
-
-
-  public long getDetailId() {
-    return detailId;
-  }
-
-  public void setDetailId(long detailId) {
-    this.detailId = detailId;
-  }
-
-
-  public long getPaperId() {
-    return paperId;
-  }
-
-  public void setPaperId(long paperId) {
-    this.paperId = paperId;
-  }
-
-
-  public long getQuestionId() {
-    return questionId;
-  }
-
-  public void setQuestionId(long questionId) {
-    this.questionId = questionId;
-  }
-
-
-  public long getQuestionType() {
-    return questionType;
-  }
-
-  public void setQuestionType(long questionType) {
-    this.questionType = questionType;
-  }
-
-
-  public String getOpt() {
-    return opt;
-  }
-
-  public void setOpt(String opt) {
-    this.opt = opt;
-  }
-
-  public String getQuestionName() {
-    return questionName;
-  }
-
-  public void setQuestionName(String questionName) {
-    this.questionName = questionName;
-  }
-
-
-  public String getCorAnswer() {
-    return corAnswer;
-  }
-
-  public void setCorAnswer(String corAnswer) {
-    this.corAnswer = corAnswer;
-  }
+  @Column
+  private long pointId;
 
 }

@@ -16,7 +16,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+<<<<<<< HEAD
     private Integer id;
+=======
+    private long id;
+>>>>>>> dev
 
     @Column(name = "username")
     private String username;
@@ -30,6 +34,21 @@ public class User {
     @Column(name = "password")
     private String password;
 
+<<<<<<< HEAD
+=======
+    @Column(name = "adminclass")
+    private String adminclass;
+
+    @Column(name = "gender")
+    private String gender;
+
+    @Column(name = "department")
+    private String department;
+
+    @Column(name = "state")
+    private long state;
+
+>>>>>>> dev
     public List<SimpleGrantedAuthority> getRoles() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         Arrays.stream(roles.split(",")).forEach(role ->
@@ -37,4 +56,10 @@ public class User {
         return authorities;
     }
 
+<<<<<<< HEAD
+=======
+    public String getName() {
+        return name;
+    }
+>>>>>>> dev
 }
