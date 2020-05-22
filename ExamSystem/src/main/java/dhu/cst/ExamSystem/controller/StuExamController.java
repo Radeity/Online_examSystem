@@ -63,4 +63,23 @@ public class StuExamController {
     public Map paperdetail(@RequestParam("ExamId") long ExamId){
         return examservice.paperdetail(ExamId);
     }
+
+    @ApiOperation("获取收藏题目")
+    @GetMapping(value = "/getfavorite")
+    public Map getfavorite(){
+        return examservice.getfavorite();
+    }
+
+    @ApiOperation("收藏")
+    @PostMapping(value = "/favorite")
+    public boolean favorite(@RequestParam("QuestionId") long questionId){
+        return examservice.favorite(questionId);
+    }
+
+    @ApiOperation("取消收藏")
+    @PostMapping(value = "/unfavorite")
+    public boolean unfavorite(@RequestParam("QuestionId") long questionId){
+        return examservice.unfavorite(questionId);
+    }
+
 }

@@ -14,5 +14,7 @@ public interface IExamService {
     Map paperdetail(long studentId,long examId);
     Map findExam(String ExamName);
     Map getExam();
-
+    boolean favorite(long questionId);
+    boolean unfavorite(long questionId);
+    Map getfavorite();
 }

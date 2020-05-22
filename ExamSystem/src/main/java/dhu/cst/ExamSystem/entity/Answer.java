@@ -25,4 +25,6 @@ public class Answer {
   private String corAnswer;
   @Column
   private long answerPoint;
+  @Column
+  private int favorite;
 }

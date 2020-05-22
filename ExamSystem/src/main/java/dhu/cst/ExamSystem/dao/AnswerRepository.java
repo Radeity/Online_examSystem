@@ -13,6 +13,7 @@ public interface AnswerRepository extends JpaRepository<Answer, Long> {
 
     List<Answer> findByQuestionId(long questionid);
     List<Answer> findByPaperId(long paperId);
+    List<Answer> findByQuestionIdAndStudentId(long questionId, long studentId);
 
     @Query(value = "select new dhu.cst.ExamSystem.common.AccuracyResult(count(a.stuAnswer),a.stuAnswer) from Answer a where a.questionId=:questionId group by a.stuAnswer")
     List<AccuracyResult> findWrongAccuracy(long questionId);

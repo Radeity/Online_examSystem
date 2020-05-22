@@ -197,6 +197,16 @@ public class ExamServiceImpl implements IExamService {
         }
         return null;
     }
+
+    @Override
+    public Map getfavorite(){
+        Map m = new HashMap();
+        long studentId = currentUser.getCurrentUser().getId();
+        List<Answerview> av = answerviewRepository.findByStudentIdAndFavorite(studentId,1);
+        m.put("favorite",av);
+        return m;
+    }
+
     @Override
     public Map findExam(String ExamName){
         Map m = new HashMap();
@@ -253,4 +263,27 @@ public class ExamServiceImpl implements IExamService {
         m.put("state",lstate);
         return m;
     }
+
+    @Override
+    public boolean favorite(long questionId){
+        long studentId = currentUser.getCurrentUser().getId();
+        List<Answer> answers = answerRepository.findByQuestionIdAndStudentId(questionId,studentId);
+        for(Answer answer : answers){
+            answer.setFavorite(1);
+            answerRepository.save(answer);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean unfavorite(long questionId){
+        long studentId = currentUser.getCurrentUser().getId();
+        List<Answer> answers = answerRepository.findByQuestionIdAndStudentId(questionId,studentId);
+        for(Answer answer : answers){
+            answer.setFavorite(0);
+            answerRepository.save(answer);
+        }
+        return true;
+    }
+
 }

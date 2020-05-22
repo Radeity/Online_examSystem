@@ -33,5 +33,8 @@ public class Answerview {
     private String corAnswer;
     @Column
     private long answerPoint;
-
+    @Column
+    private int favorite;
+    @Column
+    private String bankName;
 }
