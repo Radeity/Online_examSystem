@@ -381,6 +381,7 @@ CREATE TABLE answer
     answer_check varchar(1)   not null COMMENT '正误判断',
     answer_point smallint(4) not null COMMENT '本题得分',
     cor_answer  varchar(500) not null COMMENT '正确答案',
+    favorite    smallint(1) DEFAULT 0 COMMENT '收藏',
     primary key (answer_id),
     FOREIGN KEY (student_id) REFERENCES user (id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (paper_id) REFERENCES paper (paper_id) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -441,9 +442,9 @@ from pdetail;
 
 
 drop view if exists answerview;
-create view answerview(answer_id,paper_id,student_id,question_id,question_type,opt,question_name,stu_answer,answer_check,cor_answer,answer_point)
-as select a.answer_id,pd.paper_id, a.student_id,pd.question_id, pd.question_type, pd.opt, pd.question_name, a.stu_answer, a.answer_check, a.cor_answer, a.answer_point
-from pdetail pd,answer a where pd.question_id = a.question_id;
+create view answerview(answer_id,paper_id,student_id,question_id,question_type,opt,question_name,stu_answer,answer_check,cor_answer,answer_point,favorite)
+as select a.answer_id,pd.paper_id, a.student_id,pd.question_id, pd.question_type, pd.opt, pd.question_name, a.stu_answer, a.answer_check, a.cor_answer, a.answer_point, a.favorite
+from pdetail pd,answer a where pd.question_id = a.question_id and pd.paper_id=a.paper_id;
 
 drop view if exists teacherview;
 create view teacherview(teacher_id,teacher_name,subject_id)
@@ -452,4 +453,3 @@ as select distinct(usr.id),name,subject_id from user usr,classinfo c where c.tea
 
 set @@global.auto_increment_increment = 1;
 set @@auto_increment_increment = 1;
-
