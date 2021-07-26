@@ -49,6 +49,7 @@ public class QuestionServiceImpl implements IQuestionService {
     @Override
     public Map integratedquery(String bankName,long pointId,long type,Integer page,Integer size){
         Pageable pageable = PageRequest.of(page-1,size);
+        System.out.println(type);
         Page<Question> pq = questionRepository.integratedquery(bankName,pointId,type,pageable);
         Map m = new HashMap();
         Integer qnum = questionRepository.integratedquery(bankName,pointId,type);
@@ -118,6 +119,13 @@ public class QuestionServiceImpl implements IQuestionService {
     }
 
     @Override
+    public boolean saveall(List<Question> lq){
+        questionRepository.saveAll(lq);
+        return true;
+    }
+
+
+    @Override
     public Map delquestion(long questionid){
         Map m = new HashMap();
         questionRepository.deleteByQuestionId(questionid);
@@ -145,6 +153,11 @@ public class QuestionServiceImpl implements IQuestionService {
 
     @Override
     public Map addquestiontoexam(long questionId, long paperId){
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Map m = new HashMap();
         List<Pdetail> pdl = pdetailRepository.findByPaperIdAndQuestionId(paperId,questionId);
         if(pdl.size()!=0){
@@ -185,6 +198,7 @@ public class QuestionServiceImpl implements IQuestionService {
             pd.setPointId(question.getPointId());
             pdetailRepository.save(pd);
             n = getquestionnum(paperId);
+            System.out.println(n.get("single_added"));
             switch((int) pd.getQuestionType()){
                 case 0:
                     m.put("msg","添加成功! 单选题："+n.get("single_added")+"/"+n.get("single_total"));
@@ -220,9 +234,9 @@ public class QuestionServiceImpl implements IQuestionService {
             bnum = paper.getBlankNum();
         }
         long stype=0,mtype=1,btype=2;
-        snow = pdetailRepository.countByPaperIdAndAndQuestionType(paperId,stype);
-        mnow = pdetailRepository.countByPaperIdAndAndQuestionType(paperId,mtype);
-        bnow = pdetailRepository.countByPaperIdAndAndQuestionType(paperId,btype);
+        snow = pdetailRepository.countByPaperIdAndQuestionType(paperId,stype);
+        mnow = pdetailRepository.countByPaperIdAndQuestionType(paperId,mtype);
+        bnow = pdetailRepository.countByPaperIdAndQuestionType(paperId,btype);
         m.put("single_added",snow);
         m.put("multiple_added",mnow);
         m.put("blank_added",bnow);

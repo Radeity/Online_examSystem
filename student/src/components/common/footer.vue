@@ -27,29 +27,7 @@
                     </el-col>
                 </el-row>
             </div>
-            <div class="line"></div>
-            <el-row :gutter="20" style="margin-top: 50px;">
-                <el-col :span="12" :offset="8">
-                    <div class="copyright">
-                        <h4 class="content-c2" style="text-align: center;">Copyright ©2020</h4>
-                        <ul class="privacy">
-                            <li class="content-c1"><a class="content-c0" @click="openLayer">法律声明</a></li>
-                            <li class="content-c1"><a class="content-c0" @click="openPrivacy">隐私条款</a></li>
-                            <li class="content-c1"><a class="content-c0" @click="openCoder">开发者中心</a></li>
-                        </ul>
-                    </div>
-                </el-col>
-            </el-row>
-            <el-row :gutter="20">
-                <el-col :span="12" :offset="6">
-                    <div class="cop">
-                        <a class="content-c3" href="https://gitee.com/wells2333" target="_blank">
-                            <span class="content-c3">粤ICP备18038322号</span>
-                            <span class="content-c3">粤ICP备18038322号-1</span>
-                        </a>
-                    </div>
-                </el-col>
-            </el-row>
+            <div class="line"></div>                    
         </div>
     </div>
 </template>
@@ -59,29 +37,7 @@ export default {
         return {
         }
     },
-    methods: {
-        openLayer () {
-            this.$notify.info({
-                title: '法律声明',
-                message: '此仅为个人练习开源模仿项目，仅供学习参考，承担不起任何法律问题',
-                offset: 70
-            })
-        },
-        openPrivacy () {
-            this.$notify.info({
-                title: '隐私条款',
-                message: '本网站将不会严格遵守有关法律法规和本隐私政策所载明的内容收集、使用您的信息',
-                offset: 70
-            })
-        },
-        openCoder () {
-            this.$notify.info({
-                title: '开发者中心',
-                message: '本项目开源，请感兴趣的开发者到github查看源码',
-                offset: 70
-            })
-        }
-    },
+    methods: {},
     components: {}
 }
 </script>

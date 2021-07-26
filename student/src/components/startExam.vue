@@ -7,7 +7,7 @@
                         剩余时间:
                         <div class="time">
                             <count-down v-on:start_callback="countDownS_cb(1)" v-on:end_callback="countDownE_cb(1)" :current-time="currentTime" :start-time="startTime" :end-time="endTime" :tip-text="'距离考试开始'" :tip-text-end="'距离考试结束'" :end-text="'考试结束'" :hourTxt="':'" :minutesTxt="':'" :secondsTxt="''"></count-down>
-                        </div>
+                        </div>  
                     </div>
                     <div class="current-progress">
                         当前进度: {{index}}/{{exam.question.length}}
@@ -74,7 +74,7 @@
         <el-dialog title="答题卡" :visible.sync="dialogVisible" width="50%" top="10vh" center>
             <div class="answer-card-title" >{{exam.examinationName}}（共{{exam.question.length}}题，合计{{exam.totalScore}}分）</div>
             <el-row class="answer-card-content">
-                <el-button circle v-for="(value, index) in exam.question" :key="index" @click="toSubject(index)" >&nbsp;{{index + 1}}&nbsp;</el-button>
+                <el-button plain style="width:100%; margin:0px" v-for="(value, index) in exam.question" :key="index" @click="toSubject(index)" >&nbsp;{{index + 1}}&nbsp;{{questate[index]}}</el-button>
             </el-row>
         </el-dialog>
     </div>
@@ -90,7 +90,7 @@ import CountDown from 'vue2-countdown'
             selected: '',
             exam: {
                 examinationName: '',
-                totalScore: 66,
+                totalScore: 100,
                 question: []
             },
             disableSubmit: true,
@@ -111,7 +111,8 @@ import CountDown from 'vue2-countdown'
                 single: 0,
                 mult: 0,
                 blank: 0
-            }
+            },
+            questate: []
         }
     },
     created () {
@@ -128,7 +129,7 @@ import CountDown from 'vue2-countdown'
             this.toSubject(this.index - 1)
             let answer = []
             let an = []
-            for(var i=0; i<this.answer.length; i++){
+            for(var i=0; i<this.exam.question.length; i++){
                 if(this.answer[i] == undefined){
                     answer[i] = ''
                 }
@@ -169,16 +170,31 @@ import CountDown from 'vue2-countdown'
                     url:'http://localhost:8080/api/getPaper?ExamId='+this.examid,
                     headers:{'Authorization':localStorage.getItem('authorization')}
                 }).then(response => {
+                    var seq = []
+                    for(var i=0;i<response.data.question.length; i++){
+                        seq[i] = i
+                    }
+                    for(var i=0; i<response.data.question.length; i++){
+　　　　　　                var j = Math.floor(Math.random()*10)
+　　　　　　                var newa = seq[i]
+　　　　　　                seq[i] = seq[j]
+　　　　　　                seq[j] = newa
+                    }
                     for(var i=0; i<response.data.question.length; i++){
                         this.exam.question.push({
-                            questionName : response.data.question[i].questionName,
-                            questionId : response.data.question[i].questionId,
-                            questionType : response.data.question[i].questionType,
-                            opt : response.data.question[i].opt,
-                            paperId : response.data.question[i].paperId
+                            questionName : response.data.question[seq[i]].questionName,
+                            questionId : response.data.question[seq[i]].questionId,
+                            questionType : response.data.question[seq[i]].questionType,
+                            opt : response.data.question[seq[i]].opt,
+                            paperId : response.data.question[seq[i]].paperId
                         })
+                        console.log(this.exam.question[i].questionName)
+
+                        this.questate[i] = "Not Seen"
+
                         if(this.exam.question[i].questionType == 2)
                             this.exam.question[i].questionName = this.exam.question[i].questionName.replace(/\?/g, '______')
+
                     }
                     this.exam.examinationName = response.data.paperId.paperName
                     localStorage.setItem('studentid', response.data.studentId)
@@ -203,8 +219,14 @@ import CountDown from 'vue2-countdown'
         },
         // 跳转题目
         toSubject (index) {
-            if(this.exam.question[this.index - 1].questionType == 2)
+            if(this.questate[this.index - 1] == "Not Seen")
+                this.questate[this.index - 1] = "Not Answered"
+            if(this.exam.question[this.index - 1].questionType == 2){
                 this.answer[this.index - 1] = this.answernow
+                if(this.answernow != ''){
+                    this.questate[this.index - 1] = "Answered"
+                }
+            }
             if(index == -2){
                 if(this.index == 1){
                     this.$message('已经是第一题了')
@@ -253,9 +275,11 @@ import CountDown from 'vue2-countdown'
             if(answer != this.answernow){
                 this.answernow = answer
                 this.answer[this.index - 1] = answer
+                this.questate[this.index - 1] = "Answered"
             }
             else{
                 this.answernow = ''
+                this.questate[this.index - 1] = "Not Answered"
                 this.answer[this.index - 1] = ''
             }
         },
@@ -264,10 +288,14 @@ import CountDown from 'vue2-countdown'
             if(this.multanswernow.indexOf(answer) == -1){
                 this.multanswernow.push(answer[0])
                 this.answer[this.index - 1] = this.multanswernow
+                this.questate[this.index - 1] = "Answered"
             }
             else{
                 this.multanswernow.splice(this.multanswernow.indexOf(answer),1)
                 this.answer[this.index - 1] = this.multanswernow
+            }
+            if(this.multanswernow.length==0){
+                this.questate[this.index - 1] = "Not Answered"
             }
         },
         isChecked (optionName) {
@@ -279,6 +307,7 @@ import CountDown from 'vue2-countdown'
         countDownE_cb: function (x) {
             this.$message('考试结束')
             this.disableSubmit = true
+            this.submitExam()
         }
     }
 }

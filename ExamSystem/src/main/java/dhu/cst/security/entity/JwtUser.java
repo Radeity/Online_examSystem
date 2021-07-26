@@ -1,6 +1,7 @@
 package dhu.cst.security.entity;
 
 import dhu.cst.ExamSystem.entity.User;
+import dhu.cst.ExamSystem.utils.RoleUtil;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -21,7 +22,8 @@ public class JwtUser implements UserDetails {
         id = user.getId();
         username = user.getUsername();
         password = user.getPassword();
-        authorities = user.getRoles();
+        RoleUtil roleUtil = new RoleUtil(user);
+        authorities = roleUtil.getRolesforauth(user);
     }
 
     public long getId(){return id;}

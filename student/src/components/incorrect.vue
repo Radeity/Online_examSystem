@@ -35,10 +35,10 @@
                             <label class="el-form-item__label">评卷人: 系统自动评分</label>
                         </el-col>
                         <el-col :span="8">
-                            <label class="el-form-item__label">正确题数: </label><el-tag type="success" size="small" effect="dark">{{ correctNumber }}</el-tag>
+                            <label class="el-form-item__label">正确题数: </label><el-tag type="success" size="small" effect="dark">{{ examRecordDetail.correctNumber }}</el-tag>
                         </el-col>
                         <el-col :span="8">
-                            <label class="el-form-item__label">错误题数: </label><el-tag type="danger" size="small" effect="dark">{{ incorrectNumber }}</el-tag>
+                            <label class="el-form-item__label">错误题数: </label><el-tag type="danger" size="small" effect="dark">{{ examRecordDetail.incorrectNumber }}</el-tag>
                         </el-col>
                     </el-row>
                 </el-col>
@@ -53,21 +53,46 @@
             </el-row>
             <el-row>
                 <el-col :span="20" :offset="2">
-                    <div class="subject-content" v-for="option in answers" :key="option.id" v-show="option.answerCheck == 'F' || viewquestion == 0">
+                    <div class="subject-content" v-for="option in answers" :key="option.questionId" v-show="option.answerCheck == 'F' || viewquestion == 0">
+                        <div class="subject-content-star">
+                            <div v-if="option.favorite">
+                                <i class="el-icon-star-on" @click="toggle(option.questionId)" ></i>
+                                <span style="color: #F9C93C;">取消收藏</span>
+                            </div>
+                            <div v-if="!option.favorite">
+                                <i class="el-icon-star-off" @click="toggle(option.questionId)" ></i>
+                                <span>收藏</span>                                
+                            </div>
+                        </div>
                         <div class="subject-content-options">
                             <div class="subject-title">
-                                {{ option.questionId }}.
-                                    <span class="subject-title-content" v-html="option.questionName"/><br>
-                                    <span class="subject-title-content" v-html="option.opt"/>
-                                    <span class="subject-title-content">&nbsp;(5)分</span><br><br>
+                                <div  v-if="option.questionType === 0">
+                                    {{ option.questionId }}.
+                                    <span class="subject-title-content" v-html="option.questionName"/>
+                                    <span class="subject-title-content">&nbsp;({{score.single}})分</span><br>
+                                    <br><span class="subject-title-content" v-html="option.opt"/><br><br>
+                                </div>
+                                <div  v-if="option.questionType === 1">
+                                    {{ option.questionId }}.
+                                    <span class="subject-title-content" v-html="option.questionName"/>
+                                    <span class="subject-title-content">&nbsp;({{score.mult}})分</span><br>
+                                    <br><span class="subject-title-content" v-html="option.opt"/><br><br>
+                                </div>
+                                <div  v-if="option.questionType === 2">
+                                    {{ option.questionId }}.
+                                    <span class="subject-title-content" v-html="option.questionName"/>
+                                    <span class="subject-title-content">&nbsp;({{score.blank}})分</span><br>
+                                    <br><span class="subject-title-content" v-html="option.opt"/><br><br>
+                                </div>            
                             </div>
                             <span class="subject-title-number">正误： {{ option.answerCheck }}</span><br><br>
                             <span class="subject-title-number">你的答案： {{ option.stuAnswer }}</span><br>
-                            <span class="subject-title-number">参考答案： {{ option.corAnswer }}</span><br>
+                            <span class="subject-title-number">参考答案： {{ option.corAnswer }}</span><br><br>
+                            <span>对题目还存在疑问？<a :href='[/discuss/+option.id]' style='color:#70A0F7;'>参与题目讨论</a></span>
                         </div>
                     </div>
                 </el-col>
-            </el-row>
+            </el-row>                                   
         </el-card>
     </div>
 </template>
@@ -76,13 +101,17 @@ export default {
     data () {
         return {
             examid: 0,
-            correctNumber: 0,
-            incorrectNumber: 0,
             endtime: '',
             examRecordDetail: {},
             answers: [],
+            newque: "",
             viewquestionType: 1,
-            viewquestion: 1
+            viewquestion: 1,
+            score: {
+                single: 0,
+                mult: 0,
+                blank: 0
+            }
         }
     },
     created () {
@@ -91,12 +120,36 @@ export default {
         this.getRecordDetail()
     },
     methods: {
+        toggle (index){
+            this.answers[index-1].favorite = !this.answers[index-1].favorite
+            console.log(this.answers[index-1].favorite)
+            this.favorite(index - 1, this.answers[index-1].id)
+        },
+        favorite(index, thisid){
+            var thisurl = ''
+            if(this.answers[index].favorite==false)
+                thisurl = 'http://localhost:8080/api/unfavorite?QuestionId='
+            else if(this.answers[index].favorite==true)
+                thisurl = 'http://localhost:8080/api/favorite?QuestionId='
+
+            this.$ajax({
+                method:'post',
+                url: thisurl + thisid,
+                headers:{'Authorization':localStorage.getItem('authorization')}
+            }).then(response => {
+                console.log(response)
+            })
+            .catch(function(error) {
+                console.log('暂无更多数据！')
+            });
+        },
         getRecordDetail () {
             this.$ajax({
                 method:'get',
                 url:'http://localhost:8080/api/paperdetail?ExamId='+this.examid,
                 headers:{'Authorization':localStorage.getItem('authorization')}
             }).then(response => {
+                console.log(response)
                 this.examRecordDetail = {
                         examinationName : response.data.paper.subjectName,
                         studentName : response.data.score[0].studentName,
@@ -104,22 +157,28 @@ export default {
                         score : response.data.score[0].score,
                         endTime : this.endtime,
                         duration : response.data.score[0].submit.replace(/-/g, '.').replace('T', ' ').replace('.000+0000', ''),
-                        correctNumber : 0,
-                        inCorrectNumber : 0
+                        correctNumber : response.data.correct,
+                        incorrectNumber : response.data.wrong
                 }
+                this.score.single = response.data.paper.singleScore / response.data.paper.singleNum
+                this.score.mult = response.data.paper.multiScore / response.data.paper.multiNum
+                this.score.blank = response.data.paper.blankScore / response.data.paper.blankNum
                 for(var i=0; i<response.data.answer.length; i++){
                     this.answers.push({
-                        questionName : response.data.answer[i].questionName,
+                        questionName : response.data.answer[i].questionName.replace(/\?/g, '______'),
                         questionId : i + 1,
                         stuAnswer : response.data.answer[i].stuAnswer,
                         answerCheck : response.data.answer[i].answerCheck,
                         corAnswer : response.data.answer[i].corAnswer,
-                        opt : response.data.answer[i].opt
+                        opt : response.data.answer[i].opt,
+                        id : response.data.answer[i].questionId,
+                        favorite: response.data.answer[i].favorite,
+                        questionType: response.data.answer[i].questionType
                     })
-                    if(response.data.answer[i].answerCheck == 'T')
-                        this.correctNumber = this.correctNumber + 1
-                    else if(response.data.answer[i].answerCheck == 'F')
-                        this.incorrectNumber = this.incorrectNumber + 1
+                    if(this.answers[i].questionType == 2){
+                        this.answers[i].questionName = this.answer[i].questionName.replace(/\?/g, '______')
+                    }
+                        
                 }
             })
             .catch(function(error) {
@@ -138,6 +197,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" rel="stylesheet/scss" scoped>
+.el-icon-star-on{
+    color: #ffe500;
+    font-weight: bolder;
+    font-size: 1.3rem;
+}
+.el-icon-star-off{
+    font-weight: bolder;
+    font-size: 1.2rem;
+}
 .incorrect-answer-gray-box {
     margin-top: 50px;
     margin-bottom: 50px;
@@ -182,6 +250,17 @@ export default {
     color: #666666;
     text-align: left;
 }
+.subject-content-star {
+    position: relative;
+    margin-left: 90%;
+}
+.subject-content-options{
+    position: relative;
+    margin-top: -20px;
+    padding-top: 0px;
+    width: 90%;
+}
+
 .incorrect {
     color: #F56C6C;
 }

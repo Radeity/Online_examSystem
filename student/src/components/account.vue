@@ -49,33 +49,12 @@
                                     </el-radio-group>
                                 </el-form-item>
                                 </el-col>
-                            </el-row>
-                            <el-row>
-                                <el-col :span="24">
-                                <el-form-item label="出生日期" prop="born">
-                                    <el-date-picker v-model="Info.born" format="yyyy 年 MM 月 dd 日" value-format="timestamp" placeholder="出生日期"/>
-                                </el-form-item>
-                                </el-col>
-                            </el-row>
-                            <el-row>
-                                <el-col :span="24">
-                                <el-form-item label="电话号码" prop="phone">
-                                    <el-input v-model="Info.phone" placeholder="电话号码"/>
-                                </el-form-item>
-                                </el-col>
-                            </el-row>
-                            <el-row>
-                                <el-col :span="24">
-                                <el-form-item label="邮箱" prop="email">
-                                    <el-input v-model="Info.email" placeholder="邮箱"/>
-                                </el-form-item>
-                                </el-col>
-                            </el-row>
+                            </el-row>                                                                                    
                         </el-col>
                         <el-col :span="10" :offset="2">
                             <el-row>
                                 <el-col :span="12" :offset="6" style="text-align: center">
-                                    <img src="static/img/avatar/2.jpg" class="avatar">
+                                    <img src="static/img/avatar/4.jpg" class="avatar">
                                 </el-col>
                             </el-row>
                             <el-row>

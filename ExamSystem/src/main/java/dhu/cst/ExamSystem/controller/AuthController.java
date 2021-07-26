@@ -2,6 +2,7 @@ package dhu.cst.ExamSystem.controller;
 
 import dhu.cst.ExamSystem.entity.User;
 import dhu.cst.ExamSystem.service.IAdminUserService;
+import dhu.cst.ExamSystem.utils.RoleUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,7 +84,7 @@ public class AuthController {
 
     @ApiOperation("获取登录信息")
     @GetMapping(value = "/getuser")
-    public User getcurrentuser() {
+    public RoleUtil getcurrentuser() {
         return userService.getuser();
     }
 

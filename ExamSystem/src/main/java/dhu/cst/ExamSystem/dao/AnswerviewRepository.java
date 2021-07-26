@@ -8,5 +8,6 @@ import java.util.List;
 public interface AnswerviewRepository extends JpaRepository<Answerview,Long> {
     List<Answerview> findByStudentIdAndPaperIdOrderByQuestionType(long studentid,long paperid);
     List<Answerview> findByStudentIdAndFavorite(long studentid,int favorite);
+    Answerview findByStudentIdAndQuestionId(long studentId, long questionId);
     //List<Answerview> findByPaperId(long paperid);
 }

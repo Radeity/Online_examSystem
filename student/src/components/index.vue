@@ -5,7 +5,7 @@
                 <div class="hero-content">
                 <h2>Online-Exam 在线考试系统</h2>
                 <h4>基于SpringBoot+Vue搭建的新一代在线教学管理平台</h4>
-                <h4>提供多用户、权限管理、考试、练习等功能</h4>
+                <h4>提供多用户、权限管理、考试、试卷分析等功能</h4>
                 <router-link to="/exams" class="btn clever-btn">开始使用</router-link>
                 </div>
             </el-col>

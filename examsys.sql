@@ -19,9 +19,9 @@ CREATE TABLE user
 INSERT INTO examsys.user (id, username, name, role, password, department, gender, adminclass, state) VALUES (2, '4008823', '彭湘玲', 'ADMIN', '$2a$10$U2bmlSVSanFg/RxwQqCnuOAgZH85HbCsFGfHsM0eZ6dz3UehWXYuK', 'cs', '女', null, 1);
 INSERT INTO examsys.user (id, username, name, role, password, department, gender, adminclass, state) VALUES (4, '101000', '丁祥武', 'TEA', '$2a$10$0WvA/TcavQCpqy927qg8mOqzrZgbR7XQ9bxHHRndlT/CLYnTy3z42', '计算机科学与技术', '男', null, 1);
 INSERT INTO examsys.user (id, username, name, role, password, department, gender, adminclass, state) VALUES (5, '101001', '陈德华', 'TEA', '$2a$10$hWRXjrQx1whOR.IYIb9jkej7Vt7ytmHiTH23EX5egh7mb4w34GoyW', '计算机科学与技术', '男', null, 1);
-INSERT INTO examsys.user (id, username, name, role, password, department, gender, adminclass, state) VALUES (8, '171310132', '刘君棚', 'STU', '$2a$10$ueBAjP7F8bT9HhfYLlMY1uYlVy.A8UlupduZNIeaBdTVP5Q8ILTtK', '计算机科学与技术', '男', '信安1701', 1);
-INSERT INTO examsys.user (id, username, name, role, password, department, gender, adminclass, state) VALUES (9, '171310122', '王维饶', 'STU', '$2a$10$uEWI8.6q9rT0eJZ8w8ssjuyfMqJxQxH3MF1AxGb/Q8F8rvkOdgKWW', '计算机科学与技术', '男', '信安1702', 1);
-INSERT INTO examsys.user (id, username, name, role, password, department, gender, adminclass, state) VALUES (10, '171310121', '郭峰', 'STU', '$2a$10$Ecz0Bk8IxyUv2qeyaGt6DeIDw.Nqj4EjYCsIKrvcmFQbAHtwpRUIm', '计算机科学与技术', '男', '信安1702', 1);
+INSERT INTO examsys.user (id, username, name, role, password, department, gender, adminclass, state) VALUES (8, '2017311551', '刘知恩', 'STU', '$2a$10$ueBAjP7F8bT9HhfYLlMY1uYlVy.A8UlupduZNIeaBdTVP5Q8ILTtK', '计算机科学与技术', '男', '信安1701', 1);
+INSERT INTO examsys.user (id, username, name, role, password, department, gender, adminclass, state) VALUES (9, '2017150008', '许小平', 'STU', '$2a$10$uEWI8.6q9rT0eJZ8w8ssjuyfMqJxQxH3MF1AxGb/Q8F8rvkOdgKWW', '计算机科学与技术', '男', '信安1702', 1);
+INSERT INTO examsys.user (id, username, name, role, password, department, gender, adminclass, state) VALUES (10, '1718020310', '王多鱼', 'STU', '$2a$10$Ecz0Bk8IxyUv2qeyaGt6DeIDw.Nqj4EjYCsIKrvcmFQbAHtwpRUIm', '计算机科学与技术', '男', '信安1702', 1);
 INSERT INTO examsys.user (id, username, name, role, password, department, gender, adminclass, state) VALUES (11, '101002', '李悦', 'TEA', '$2a$10$9A5MoOYbHDxo7WFOWkzete6YjySd8H1izpH8BYRnsUgvYAkjxawDe', '计算机科学与技术', '男', null, 1);
 INSERT INTO examsys.user (id, username, name, role, password, department, gender, adminclass, state) VALUES (12, '101004', '黄秋波', 'TEA', '$2a$10$GkY4o024W2mcswPucG38e.cHZQfryKx4qlbnuPhN9sUgDsu0DriJ.', '计算机科学与技术', '男', null, 1);
 INSERT INTO examsys.user (id, username, name, role, password, department, gender, adminclass, state) VALUES (14, '101005', '王宏建', 'TEA', '$2a$10$x80AWWAS9oj/JOE6v/UnjuyCqjkJAqtz3HgIjbkeqoyuYVhhkZuAy', '计算机科学与技术', '男', null, 1);
@@ -330,24 +330,24 @@ as select s.score_id, s.score, s.student_id, u.username, s.student_name, u.depar
           s.subject_id, s.subject_name, s.class_id, s.class_name,s.teacher_name, s.paper_id, s.submit, s.exam_id,s.exam_name
 from score s,user u where s.student_id = u.id;
 
-INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (174, 70, 10, '郭峰', 1, '数据库原理与应用', 1, 59, '2020-04-23 22:58:14', 108, '数据库期末考试', '数据库1班', '陈德华');
-INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (175, -1, 8, '刘君棚', 1, '数据库原理与应用', 2, 59, null, 108, '数据库期末考试', '数据库2班', '陈德华');
-INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (176, 30, 9, '王维饶', 1, '数据库原理与应用', 3, 59, '2020-04-22 22:40:44', 108, '数据库期末考试', '数据库3班', '陈德华');
-INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (177, -1, 9, '王维饶', 5, '网络安全原理与应用', 5, 60, null, 109, '网络安全期中测验', '网络安全1班', '李悦');
-INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (178, -1, 8, '刘君棚', 5, '网络安全原理与应用', 5, 60, null, 109, '网络安全期中测验', '网络安全1班', '李悦');
-INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (179, -1, 10, '郭峰', 5, '网络安全原理与应用', 5, 60, null, 109, '网络安全期中测验', '网络安全1班', '李悦');
-INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (180, -1, 10, '郭峰', 1, '数据库原理与应用', 1, 62, null, 110, '数据库期末考试补考', '数据库1班', '陈德华');
-INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (181, -1, 8, '刘君棚', 1, '数据库原理与应用', 2, 62, null, 110, '数据库期末考试补考', '数据库2班', '陈德华');
-INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (182, -1, 9, '王维饶', 1, '数据库原理与应用', 3, 62, null, 110, '数据库期末考试补考', '数据库3班', '陈德华');
-INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (183, -1, 9, '王维饶', 5, '网络安全原理与应用', 5, 60, null, 109, '网络安全期中测验', '网络安全1班', '李悦');
-INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (184, -1, 8, '刘君棚', 5, '网络安全原理与应用', 5, 60, null, 109, '网络安全期中测验', '网络安全1班', '李悦');
-INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (185, -1, 10, '郭峰', 5, '网络安全原理与应用', 5, 60, null, 109, '网络安全期中测验', '网络安全1班', '李悦');
-INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (189, -1, 9, '王维饶', 5, '网络安全原理与应用', 5, 60, null, 109, '网络安全期中测验', '网络安全1班', '李悦');
-INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (190, -1, 8, '刘君棚', 5, '网络安全原理与应用', 5, 60, null, 109, '网络安全期中测验', '网络安全1班', '李悦');
-INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (191, -1, 10, '郭峰', 5, '网络安全原理与应用', 5, 60, null, 109, '网络安全期中测验', '网络安全1班', '李悦');
-INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (201, 50, 9, '王维饶', 2, '数据结构', 7, 61, '2020-04-24 13:51:01', 111, '数据结构期末考试', '数据结构1班', '黄秋波');
-INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (202, 10, 8, '刘君棚', 2, '数据结构', 7, 61, '2020-04-24 15:27:41', 111, '数据结构期末考试', '数据结构1班', '黄秋波');
-INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (203, 60, 10, '郭峰', 2, '数据结构', 7, 61, '2020-04-24 13:51:45', 111, '数据结构期末考试', '数据结构1班', '黄秋波');
+INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (174, 70, 10, '王多鱼', 1, '数据库原理与应用', 1, 59, '2020-04-23 22:58:14', 108, '数据库期末考试', '数据库1班', '陈德华');
+INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (175, -1, 8, '刘知恩', 1, '数据库原理与应用', 2, 59, null, 108, '数据库期末考试', '数据库2班', '陈德华');
+INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (176, 30, 9, '许小平', 1, '数据库原理与应用', 3, 59, '2020-04-22 22:40:44', 108, '数据库期末考试', '数据库3班', '陈德华');
+INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (177, -1, 9, '许小平', 5, '网络安全原理与应用', 5, 60, null, 109, '网络安全期中测验', '网络安全1班', '李悦');
+INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (178, -1, 8, '刘知恩', 5, '网络安全原理与应用', 5, 60, null, 109, '网络安全期中测验', '网络安全1班', '李悦');
+INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (179, -1, 10, '王多鱼', 5, '网络安全原理与应用', 5, 60, null, 109, '网络安全期中测验', '网络安全1班', '李悦');
+INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (180, -1, 10, '王多鱼', 1, '数据库原理与应用', 1, 62, null, 110, '数据库期末考试补考', '数据库1班', '陈德华');
+INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (181, -1, 8, '刘知恩', 1, '数据库原理与应用', 2, 62, null, 110, '数据库期末考试补考', '数据库2班', '陈德华');
+INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (182, -1, 9, '许小平', 1, '数据库原理与应用', 3, 62, null, 110, '数据库期末考试补考', '数据库3班', '陈德华');
+INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (183, -1, 9, '许小平', 5, '网络安全原理与应用', 5, 60, null, 109, '网络安全期中测验', '网络安全1班', '李悦');
+INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (184, -1, 8, '刘知恩', 5, '网络安全原理与应用', 5, 60, null, 109, '网络安全期中测验', '网络安全1班', '李悦');
+INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (185, -1, 10, '王多鱼', 5, '网络安全原理与应用', 5, 60, null, 109, '网络安全期中测验', '网络安全1班', '李悦');
+INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (189, -1, 9, '许小平', 5, '网络安全原理与应用', 5, 60, null, 109, '网络安全期中测验', '网络安全1班', '李悦');
+INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (190, -1, 8, '刘知恩', 5, '网络安全原理与应用', 5, 60, null, 109, '网络安全期中测验', '网络安全1班', '李悦');
+INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (191, -1, 10, '王多鱼', 5, '网络安全原理与应用', 5, 60, null, 109, '网络安全期中测验', '网络安全1班', '李悦');
+INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (201, 50, 9, '许小平', 2, '数据结构', 7, 61, '2020-04-24 13:51:01', 111, '数据结构期末考试', '数据结构1班', '黄秋波');
+INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (202, 10, 8, '刘知恩', 2, '数据结构', 7, 61, '2020-04-24 15:27:41', 111, '数据结构期末考试', '数据结构1班', '黄秋波');
+INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (203, 60, 10, '王多鱼', 2, '数据结构', 7, 61, '2020-04-24 13:51:45', 111, '数据结构期末考试', '数据结构1班', '黄秋波');
 INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (204, 60, 15, '张三', 2, '数据结构', 7, 61, '2020-04-24 13:52:22', 111, '数据结构期末考试', '数据结构1班', '黄秋波');
 INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (205, 60, 16, '李四', 2, '数据结构', 7, 61, '2020-04-24 14:01:03', 111, '数据结构期末考试', '数据结构1班', '黄秋波');
 INSERT INTO examsys.score (score_id, score, student_id, student_name, subject_id, subject_name, class_id, paper_id, submit, exam_id, exam_name, class_name, teacher_name) VALUES (206, -1, 17, '王五', 2, '数据结构', 7, 61, null, 111, '数据结构期末考试', '数据结构1班', '黄秋波');
@@ -453,3 +453,25 @@ as select distinct(usr.id),name,subject_id from user usr,classinfo c where c.tea
 
 set @@global.auto_increment_increment = 1;
 set @@auto_increment_increment = 1;
+
+
+UPDATE examsys.question t SET t.question_name = 'SQL语句中的条件以下哪一项来表达?' WHERE t.question_id = 2;
+UPDATE examsys.pdetail t SET t.question_name = 'SQL语句中的条件以下哪一项来表达?' WHERE t.question_id = 2;
+
+CREATE TABLE discuss
+(
+    discuss_id   mediumint(10) not null AUTO_INCREMENT,
+    stu_id       mediumint(10)       not null,
+    stu_name     varchar(20)   not null,
+    question_id  mediumint(10)       not null,
+    reply        smallint(1)   DEFAULT 0 COMMENT '是否为回复',
+    replydiscuss mediumint(10) DEFAULT 0 COMMENT '回复的讨论',
+    replystuid   mediumint(10)       DEFAULT 0 COMMENT '回复的用户ID',
+    replystuname varchar(20)   DEFAULT NULL COMMENT '回复的用户名字',
+    content      varchar(400)  DEFAULT NULL COMMENT '讨论内容',
+    dtime        datetime      DEFAULT NULL COMMENT '提交时间',
+    thumb        mediumint(10) DEFAULT 0 COMMENT '点赞数',
+    primary key (discuss_id),
+    FOREIGN KEY (stu_id) REFERENCES user (id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (question_id) REFERENCES question (question_id) ON DELETE CASCADE ON UPDATE CASCADE
+);

@@ -58,7 +58,7 @@ export default {
     methods: {
         // 加载考试记录
         getList () {
-                            console.log(localStorage.getItem('authorization'))
+            console.log(localStorage.getItem('authorization'))
             this.$ajax({
                 method:'get',
                 url:'http://localhost:8080/api/getExam',

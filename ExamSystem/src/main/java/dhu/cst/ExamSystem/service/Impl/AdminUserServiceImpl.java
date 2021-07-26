@@ -3,20 +3,20 @@ package dhu.cst.ExamSystem.service.Impl;
 import dhu.cst.ExamSystem.dao.UserRepository;
 import dhu.cst.ExamSystem.entity.User;
 import dhu.cst.ExamSystem.service.IAdminUserService;
+import dhu.cst.ExamSystem.utils.RedisUtil;
+import dhu.cst.ExamSystem.utils.RoleUtil;
 import dhu.cst.security.entity.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 @Service("AdminUserService")
-@Transactional
 public class AdminUserServiceImpl implements IAdminUserService {
     @Autowired
     UserRepository userRepository;
@@ -24,6 +24,9 @@ public class AdminUserServiceImpl implements IAdminUserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private CurrentUser currentUser;
+    @Autowired
+    private RedisUtil redisUtil;
+
 
     @Override
     public void saveUser(Map<String, String> registerUser) {
@@ -59,13 +62,23 @@ public class AdminUserServiceImpl implements IAdminUserService {
         user.setDepartment(department);
         user.setAdminclass(adminclass);
         userRepository.save(user);
+        redisUtil.set("user"+username,user);
     }
 
     @Override
-    public User findUserByUserName(String name) {
+    public User findUserByUserName(String username) {
         long state=1;
-        return userRepository.findByUsernameAndState(name,state)
-                .orElseThrow(() -> new UsernameNotFoundException("No user found with number " + name));
+        User user;
+        String key = "user"+username;
+        if(redisUtil.hasKey(key)){
+            user = (User)redisUtil.get(key);
+        }
+        else{
+            user = userRepository.findByUsernameAndState(username, state);
+            System.out.println("from db");
+            redisUtil.set(key,user);
+        }
+        return user;
     }
     @Override
     public User findUserByName(String name) {
@@ -81,17 +94,21 @@ public class AdminUserServiceImpl implements IAdminUserService {
         return userRepository.findAll();
     }
     @Override
-    public User getuser(){
+    public RoleUtil getuser(){
         long Id = currentUser.getCurrentUser().getId();
-        return userRepository.findById(Id);
+        User user = userRepository.findById(Id);
+        RoleUtil roleUtil = new RoleUtil(user);
+        System.out.println(roleUtil.getName());
+        return roleUtil;
     }
     @Override
     public void deleteUserByUserName(String name) {
         Optional<User> ouser = userRepository.findByName(name);
         User user = ouser.get();
-        List<SimpleGrantedAuthority> lrole = user.getRoles();
+        RoleUtil roleUtil = new RoleUtil(user);
+        List<SimpleGrantedAuthority> lrole = roleUtil.getRolesforauth(user);
         String role = lrole.get(0).getAuthority();
-        System.out.println(role);
+        redisUtil.del("user"+user.getUsername());
         userRepository.deleteByName(name);
     }
     @Override
@@ -113,6 +130,7 @@ public class AdminUserServiceImpl implements IAdminUserService {
     public boolean stateforbid(long id){
         User user = userRepository.findById(id);
         user.setState(0);
+        redisUtil.del("user"+user.getUsername());
         userRepository.save(user);
         return true;
     }
@@ -121,6 +139,7 @@ public class AdminUserServiceImpl implements IAdminUserService {
         User user = userRepository.findById(id);
         user.setState(1);
         userRepository.save(user);
+        redisUtil.set("user"+user.getUsername(),user);
         return true;
     }
 }

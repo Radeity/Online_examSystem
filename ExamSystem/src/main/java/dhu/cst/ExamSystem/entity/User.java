@@ -1,17 +1,14 @@
 package dhu.cst.ExamSystem.entity;
 
 import lombok.Data;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.io.Serializable;
 
 @Entity
 @Data
 @Table(name = "user")
-public class User {
+public class User  implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,13 +38,6 @@ public class User {
 
     @Column(name = "state")
     private long state;
-
-    public List<SimpleGrantedAuthority> getRoles() {
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        Arrays.stream(roles.split(",")).forEach(role ->
-                authorities.add(new SimpleGrantedAuthority("ROLE_" + role)));
-        return authorities;
-    }
 
     public String getName() {
         return name;

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByUsernameAndState(String username,long state);
+    User findByUsernameAndState(String username,long state);
     Optional<User> findByName(String name);
     List<User> findByRoles(String role);
     User findByUsername(String username);

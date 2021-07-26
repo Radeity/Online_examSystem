@@ -1,6 +1,7 @@
 package dhu.cst.ExamSystem.service;
 
 import dhu.cst.ExamSystem.entity.Answer;
+import dhu.cst.ExamSystem.entity.Answerview;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -17,4 +18,5 @@ public interface IExamService {
     boolean favorite(long questionId);
     boolean unfavorite(long questionId);
     Map getfavorite();
+    Answerview getquestion(long questionId);
 }

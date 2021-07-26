@@ -33,8 +33,8 @@ public class PointController {
 
     @ApiOperation("增加或更新知识点")
     @PostMapping(value = "/saveorupdatepoint")
-    public Map addpoint(@RequestBody String strpoint) {
-        return pointService.addpoint(strpoint);
+    public boolean addpoint(@RequestBody Point point) {
+        return pointService.addpoint(point);
     }
 
     @ApiOperation("删除知识点")

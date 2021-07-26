@@ -12,6 +12,10 @@ import 'element-ui/lib/theme-chalk/index.css'
 import * as filters from './filters' // global filters
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
 import axios from 'axios'
+import './assets/icon/iconfont.css'
+import './assets/icon/iconfont.js'
+
+
 
 Vue.config.productionTip = false
 

@@ -8,6 +8,9 @@ import exams from '@/components/exams'
 import startExam from '@/components/startExam'
 import incorrect from '@/components/incorrect'
 import account from '@/components/account'
+import like from '@/components/like'
+import discuss from '@/components/discuss'
+//import te from '@/components/te'
 
 Vue.use(Router)
 
@@ -53,6 +56,21 @@ export default new Router({
       path: '/account',
       name: 'account',
       component: account
-    }
+    },
+    {
+      path: '/like',
+      name: 'like',
+      component: like
+    },
+    {
+      path: '/discuss/:id',
+      name: 'discuss',
+      component: discuss
+    }/*
+    {
+      path: '/te/:id',
+      name: 'te',
+      component: te
+    }*/
   ]
 })

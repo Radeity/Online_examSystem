@@ -14,6 +14,7 @@
                                         :unique-opened=true>
                                     <el-menu-item index="/index" @click="open('/')">首页</el-menu-item>
                                     <el-menu-item index="/exams" @click="open('/exams')">考试</el-menu-item>
+                                    <el-menu-item index="/like" @click="open('/like')">我的收藏</el-menu-item>
                                     <el-submenu index="/u">
                                         <template slot="title">帮助</template>
                                             <el-menu-item index="u-source" @click="open('https://github.com/Radeity/Online_examSystem')">
@@ -35,7 +36,7 @@
                                     <el-submenu v-if="checklogin()" index="/user-info">
                                         <template slot="title">
                                             {{ username }}&nbsp;&nbsp;
-                                            <img src="static/img/avatar/2.jpg" style="height: 30px;border-radius: 50%;margin-right: 6px;"/>
+                                            <img src="../../../static/img/avatar/5.jpg" style="height: 30px;border-radius: 50%;margin-right: 6px;"/>
                                         </template>
                                         <el-menu-item index="account" @click="open('/account')">个人中心</el-menu-item>
                                         <el-menu-item index="password" @click="open('/password')">修改密码</el-menu-item>

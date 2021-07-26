@@ -28,11 +28,11 @@ public interface QuestionRepository extends JpaRepository<Question,Long> {
     List<String> getbanks(@Param("subjectId") long subjectId);
 
     @Query(value = "select * from Question where if(?1 !='',bank_name=?1,1=1) and if(?2!=0,point_id=?2,1=1)" +
-            "and if(?3 !=0,question_type=?3,1=1 and point_id is not null) ",nativeQuery = true)
+            "and if(?3 !=-1,question_type=?3,1=1 and point_id is not null) ",nativeQuery = true)
     Page<Question> integratedquery(String bankName,long pointId,long type,Pageable page);
 
     @Query(value = "select count(*) from Question where if(?1 !='',bank_name=?1,1=1) and if(?2!=0,point_id=?2,1=1)" +
-            "and if(?3 !=0,question_type=?3,1=1 and point_id is not null) ",nativeQuery = true)
+            "and if(?3 !=-1,question_type=?3,1=1 and point_id is not null) ",nativeQuery = true)
     Integer integratedquery(String bankName,long pointId,long type);
 
     @Modifying

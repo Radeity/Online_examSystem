@@ -78,7 +78,7 @@
                             <span class="subject-title-number">多数答案： {{ point[i.pointid].wrong[option.questionId-1].answer }}</span><br>
                             <span class="subject-title-number">参考答案： {{ option.corAnswer }}</span><br><br><br>
                             正确率<el-progress style=" width:300px;" :percentage="Math.round(correct[i.pointid][option.questionId-1].rate*100)"></el-progress>
-                            错误率<el-progress style=" width:300px;" :percentage="Math.round((1-correct[i.pointid][option.questionId-1].rate)*100)"></el-progress>
+                            错误率<el-progress style=" width:300px;" :percentage="Math.round(point[i.pointid].wrong[option.questionId-1].rate*100)"></el-progress>
                         </div>
                     </div>
                 </el-col>

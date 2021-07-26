@@ -1,0 +1,23 @@
+{
+  "id": "1850390",
+  "name": "or",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "2513052",
+      "name": "thumbs",
+      "font_class": "thumbs",
+      "unicode": "e796",
+      "unicode_decimal": 59286
+    },
+    {
+      "icon_id": "2565244",
+      "name": "thumbs",
+      "font_class": "thumbs1",
+      "unicode": "e81c",
+      "unicode_decimal": 59420
+    }
+  ]
+}

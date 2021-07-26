@@ -15,7 +15,7 @@ public interface PdetailRepository extends JpaRepository<Pdetail, Long> {
 
     List<Pdetail> findByQuestionId(long questionId);
 
-    Long countByPaperIdAndAndQuestionType(Long paperId,Long questionType);
+    Long countByPaperIdAndQuestionType(Long paperId,Long questionType);
 
     List<Pdetail> findByPaperIdAndQuestionId(long paperId,long questionId);
 

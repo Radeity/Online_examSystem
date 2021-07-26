@@ -84,35 +84,35 @@ export default {
                     code: ''
                 },
                 rules: {
-                identifier: [{ required: true, trigger: 'blur', message: '请输入用户名' }],
-                credential: [
-                    { required: true, trigger: 'blur', message: '请输入密码' },
-                    { min: 6, trigger: 'blur', message: '密码长度最少为6位' }],
-                code: [
-                    { required: true, message: '请输入验证码', trigger: 'blur' },
-                    { min: 4, max: 4, message: '验证码长度为4位', trigger: 'blur' }
-                ]
+                    identifier: [{ required: true, trigger: 'blur', message: '请输入用户名' }],
+                    credential: [
+                        { required: true, trigger: 'blur', message: '请输入密码' },
+                        { min: 6, trigger: 'blur', message: '密码长度最少为6位' }],
+                    code: [
+                        { required: true, message: '请输入验证码', trigger: 'blur' },
+                        { min: 4, max: 4, message: '验证码长度为4位', trigger: 'blur' }
+                    ]
                 },
                 loading: false,
                 passwordType: 'password'
             },
             register: {
                 form: {
-                identifier: '',
-                email: '',
-                credential: '',
-                code: '',
+                    identifier: '',
+                    email: '',
+                    credential: '',
+                    code: '',
                 },
                 rules: {
-                identifier: [{ required: true, trigger: 'blur', message: '请输入用户名' }],
-                email: [{ required: true, trigger: 'blur', message: '请输入邮箱地址' }],
-                credential: [
-                    { required: true, trigger: 'blur', message: '请输入密码' },
-                    { min: 6, trigger: 'blur', message: '密码长度最少为6位' }],
-                code: [
-                    { required: true, message: '请输入验证码', trigger: 'blur' },
-                    { min: 4, max: 4, message: '验证码长度为4位', trigger: 'blur' }
-                ]
+                    identifier: [{ required: true, trigger: 'blur', message: '请输入用户名' }],
+                    email: [{ required: true, trigger: 'blur', message: '请输入邮箱地址' }],
+                    credential: [
+                        { required: true, trigger: 'blur', message: '请输入密码' },
+                        { min: 6, trigger: 'blur', message: '密码长度最少为6位' }],
+                    code: [
+                        { required: true, message: '请输入验证码', trigger: 'blur' },
+                        { min: 4, max: 4, message: '验证码长度为4位', trigger: 'blur' }
+                    ]
                 },
                 loading: false,
                 passwordType: 'password'

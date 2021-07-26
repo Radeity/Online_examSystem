@@ -8,6 +8,7 @@ import java.util.Map;
 public interface IPointService {
     List<Point> getpointbytea();
     List<Point> getpointbysub(long subjectId);
-    Map addpoint(String str);
+    List<Point> findbypointname(String pointame);
+    boolean addpoint(Point point);
     Map delpoint(long pointid);
 }

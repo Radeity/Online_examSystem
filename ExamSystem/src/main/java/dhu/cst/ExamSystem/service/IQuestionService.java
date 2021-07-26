@@ -17,6 +17,7 @@ public interface IQuestionService {
     List<Pdetail> getquefromexambypoint(long paperId,long pointId,Integer page,Integer size);
     List<Pdetail> getquefromexambytype(long paperId,long type,Integer page,Integer size);
     Map addquestion(String queinfo);
+    boolean saveall(List<Question> lq);
     Map delquestion(long questionid);
     boolean addbank(long subjectId,String bankname);
     boolean changebankname(String oldname,String newname);

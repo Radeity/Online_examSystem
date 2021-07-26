@@ -94,7 +94,12 @@ export default {
                 headers:{'Authorization':localStorage.getItem('authorization'),'Content-Type':'application/json'},
                 data: JSON.stringify(an)
             }).then(response => {
-                this.$router.push('/')
+                if(!response.data){
+                    alert('修改失败！')
+                }
+                else{
+                    this.$router.push('/')
+                }     
             })
             .catch(function(error) {
                 alert('提交错误！')

@@ -2,6 +2,7 @@ package dhu.cst.ExamSystem.controller;
 
 import com.alibaba.fastjson.JSON;
 import dhu.cst.ExamSystem.entity.Answer;
+import dhu.cst.ExamSystem.entity.Answerview;
 import dhu.cst.ExamSystem.entity.Scoreview;
 import dhu.cst.ExamSystem.service.IExamService;
 import dhu.cst.ExamSystem.service.IGradeService;
@@ -62,6 +63,12 @@ public class StuExamController {
     @GetMapping(value = "/paperdetail")
     public Map paperdetail(@RequestParam("ExamId") long ExamId){
         return examservice.paperdetail(ExamId);
+    }
+
+    @ApiOperation("获取讨论区题目")
+    @GetMapping(value = "/getquestion")
+    public Answerview getquestion(@RequestParam("questionId") long questionId){
+        return examservice.getquestion(questionId);
     }
 
     @ApiOperation("获取收藏题目")

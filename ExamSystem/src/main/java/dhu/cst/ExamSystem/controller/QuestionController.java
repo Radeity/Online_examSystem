@@ -2,13 +2,18 @@ package dhu.cst.ExamSystem.controller;
 
 import dhu.cst.ExamSystem.entity.Pdetail;
 import dhu.cst.ExamSystem.entity.Question;
+import dhu.cst.ExamSystem.excel.SubjectExcelModel;
+import dhu.cst.ExamSystem.excel.SubjectImportListener;
+import dhu.cst.ExamSystem.service.IPointService;
 import dhu.cst.ExamSystem.service.IQuestionService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import dhu.cst.ExamSystem.utils.ExcelToolUtil;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +24,8 @@ import java.util.Map;
 public class QuestionController {
     @Autowired
     IQuestionService questionService;
+    @Autowired
+    IPointService pointService;
 
     @ApiOperation("根据学科获取题库名")
     @GetMapping(value = "/getbank")
@@ -38,7 +45,7 @@ public class QuestionController {
     @GetMapping(value = "/questionintegratedquery")
     public Map questionintegratedquery(@RequestParam(value="bankName",required = false,defaultValue = "") String bankName,
                                             @RequestParam(value="pointId",required = false,defaultValue = "0")  long pointId,
-                                            @RequestParam(value="type",required = false,defaultValue = "0")  long type,
+                                            @RequestParam(value="type",required = false,defaultValue = "-1")  long type,
                                             @RequestParam("pageNum") Integer page,
                                             @RequestParam("pageSize") Integer size) {
         return questionService.integratedquery(bankName,pointId,type,page,size);
@@ -112,6 +119,17 @@ public class QuestionController {
         return questionService.addquestion(strque);
     }
 
+    @ApiOperation("导入题目")
+    @PostMapping(value = "/import")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "subjectId", value = "学科ID", dataType = "Long"),
+            @ApiImplicitParam(name = "bankName", value = "题库名", dataType = "String")})
+    public Boolean importque(long subjectId,String bankName,
+                             @ApiParam(value = "要上传的文件", required = true) MultipartFile file) throws IOException {
+        return ExcelToolUtil.readExcel(file.getInputStream(), SubjectExcelModel.class, new SubjectImportListener(pointService,questionService,subjectId, bankName));
+
+    }
+
     @ApiOperation("删除题目")
     @DeleteMapping(value = "/delequestion")
     public Map deletequestion(@RequestParam("questionId") long questionId){
@@ -120,7 +138,7 @@ public class QuestionController {
 
     @ApiOperation("新增题库")
     @PostMapping(value = "/addbank")
-    public boolean addbank(@RequestParam("bankName") String bankName,
+    public boolean importque(@RequestParam("bankName") String bankName,
                            @RequestParam("subjectId") long subjectId) {
         return questionService.addbank(subjectId,bankName);
     }

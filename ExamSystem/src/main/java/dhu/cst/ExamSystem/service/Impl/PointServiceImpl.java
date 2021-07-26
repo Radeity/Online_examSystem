@@ -1,6 +1,5 @@
 package dhu.cst.ExamSystem.service.Impl;
 
-import com.alibaba.fastjson.JSON;
 import dhu.cst.ExamSystem.dao.ClassInfoRepository;
 import dhu.cst.ExamSystem.dao.PointRepository;
 import dhu.cst.ExamSystem.entity.Classinfo;
@@ -43,17 +42,15 @@ public class PointServiceImpl implements IPointService {
         return pointRepository.findBySubjectId(subjectId);
     }
 
+    @Override
+    public List<Point> findbypointname(String pointname){
+        return pointRepository.findByPointName(pointname);
+    };
 
     @Override
-    public Map addpoint(String str){
-        Map m = new HashMap();
-        List<Point> lpoint = JSON.parseArray(JSON.parseObject(str).getString("point"), Point.class);
-        if(lpoint.size()!=0){
-            Point point = lpoint.get(0);
-            pointRepository.save(point);
-            m.put("msg","Operating successfully!");
-        }
-        return m;
+    public boolean addpoint(Point point){
+        pointRepository.save(point);
+        return true;
     }
 
     @Override

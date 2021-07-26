@@ -136,6 +136,14 @@ public class ExamServiceImpl implements IExamService {
         }
         return  "unfinished";
     }
+
+    @Override
+    public Answerview getquestion(long questionId){
+        long studentId = currentUser.getCurrentUser().getId();
+        Answerview av = answerviewRepository.findByStudentIdAndQuestionId(studentId,questionId);
+        return av;
+    }
+
     @Override
     public Map paperdetail(long examId) {
         Map m = new HashMap();
